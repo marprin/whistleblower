@@ -1,6 +1,34 @@
-# Getting Started with Create React App
+# Public Web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What is this project?
+
+This is a public face website for them to submit an issue.
+
+## Technology
+
+- [Reactjs](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindui.com/)
+
+## How to start ?
+
+First after clone the project, you need to make sure you have npm or yarn to install the dependency.
+
+With NPM
+```$command
+	npm install
+```
+
+With Yarn
+```$command
+	yarn
+```
+
+After the package installation finish, you can start the project by `yarn start` or `npm start`. But if you would like to use with docker
+```$command
+	docker-compose up
+```
+
+The application will be available on [localhost:5000](http://localhost:5000)
 
 ## Available Scripts
 
