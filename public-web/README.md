@@ -30,6 +30,10 @@ After the package installation finish, you can start the project by `yarn start`
 
 The application will be available on [localhost:5000](http://localhost:5000)
 
+## Custom Environment
+
+If you would like to customize the port, host, etc, you could put it inside .env.local file for your development. You can copy from `.env.example` into `.env.local` and change it.
+
 ## Available Scripts
 
 In the project directory, you can run:
