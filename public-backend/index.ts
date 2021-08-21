@@ -1,6 +1,6 @@
 import app from './app';
 import process from 'process';
-import Logger from './lib/logger';
+import Logger from './src/lib/logger';
 
 
 const port = app.get('port');

@@ -4,8 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
-import Logger from './lib/logger';
-import { routesMapping } from './routes';
+import Logger from './src/lib/logger';
+import { routesMapping } from './src/routes';
 
 // Library Init
 dotenv.config();
