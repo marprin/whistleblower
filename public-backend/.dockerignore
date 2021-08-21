@@ -1,0 +1,8 @@
+node_modules/
+docker-compose.yml
+build/
+readme.md
+*.swp
+.nvmrc
+
+
