@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import Logger from './lib/logger';
-import * as healthz from './handler/healthz'; 
+import { routesMapping } from './routes';
 
 // Library Init
 dotenv.config();
@@ -36,8 +36,8 @@ const corsOptionsDelegate = ((req: any, callback: any) => {
 });
 app.use(cors(corsOptionsDelegate));
 
-const prefix = env.APP_PREFIX;
-app.get(`${prefix}/healthz`, healthz.index);
+// Register all routes in here
+routesMapping(app);
 
 // Set the 404 Not found handler
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
