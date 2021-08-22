@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import Logger from './src/lib/logger';
+import morganMiddleware from './src/lib/middleware';
 import { routesMapping } from './src/routes';
 
 // Library Init
@@ -21,6 +22,7 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(helmet());
+app.use(morganMiddleware);
 
 // Set the cors
 const corsOrigin = env.CORS_ORIGIN || '*';
