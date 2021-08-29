@@ -7,8 +7,8 @@
   "scripts": {
     "start": "nodemon index.ts",
     "build": "tsc --project ./",
-	"prettier-check": "yarn prettier --check .",
-	"prettier": "yarn prettier --write ."
+    "prettier-check": "yarn prettier --check .",
+    "prettier": "yarn prettier --write ."
   },
   "dependencies": {
     "@types/body-parser": "^1.19.1",
@@ -24,8 +24,7 @@
     "express": "^4.17.1",
     "joi": "^17.4.2",
     "morgan": "^1.10.0",
-    "sequelize": "^6.6.5",
-    "sqlite3": "^5.0.2",
+    "mysql2": "^2.3.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
