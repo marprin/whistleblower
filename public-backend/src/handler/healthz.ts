@@ -1,7 +1,11 @@
-import { Response, Request } from 'express';
+import { Request, Response } from 'express';
 
+export class Healthz {
+	constructor() {
 
-export const index = (req: Request, res: Response) => {
-	return res.status(200).json({"status": "Ok"});
-};
+	}
 
+	public index(req: Request, res: Response) {
+		return res.status(200).json({"status": "OK"});
+	}
+}
