@@ -1,8 +1,8 @@
-import app from './app';
 import process from 'process';
+import { init } from './app';
 import Logger from './src/lib/logger';
 
-
+const app =  init();
 const port = app.get('port');
 const host = app.get('host');
 const env = app.get('env');

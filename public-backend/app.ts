@@ -4,55 +4,44 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
-import Logger from './src/lib/logger';
+import { corsOptionsDelegate } from './src/lib/cors';
+import { ErrorHandler, NotFoundHandler } from './src/lib/custom-handler';
 import morganMiddleware from './src/lib/middleware';
 import { routesMapping } from './src/routes';
 
-// Library Init
-dotenv.config();
-const env = process.env;
-const app = express();
 
-// Set the express config
-app.set('port', env.APP_PORT);
-app.set('host', env.APP_HOST);
+export const init = () => {
+	// Library Init
+	dotenv.config();
+	const env = process.env;
+	const app = express();
 
-// Set the library for the application
-app.use(compression());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(helmet());
-app.use(morganMiddleware);
+	// Set the express config
+	app.set('port', env.APP_PORT);
+	app.set('host', env.APP_HOST);
 
-// Set the cors
-const corsOrigin = env.CORS_ORIGIN || '*';
-const listCorsOrigin = corsOrigin.split(',');
-const corsOptionsDelegate = ((req: any, callback: any) => {
-	let corsOptions;
-	if(listCorsOrigin.indexOf(req.header('Origin')) !== -1) {
-		corsOptions = {origin: true};
-	} else {
-		corsOptions = {origin: false};
-	}
-	callback(null, corsOptions);
-});
-app.use(cors(corsOptionsDelegate));
+	// Set the library for the application
+	registerLibrary(app);
 
-// Register all routes in here
-routesMapping(app);
+	// Set the cors
+	const corsOrigin = env.CORS_ORIGIN || '*';
+	const listCorsOrigin = corsOrigin.split(',');
+	app.use(cors(corsOptionsDelegate(listCorsOrigin)));
 
-// Set the 404 Not found handler
-app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-	Logger.info(`Receive unknown request to ${req.path} path`);
-	return res.status(404).json({error: "The requested endpoint is not found"}).end();
-});
+	// Register all routes in here
+	routesMapping(app);
 
+	// Register custom handler
+	app.use(NotFoundHandler);
+	app.use(ErrorHandler);
 
-// Set the default error handler
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-	Logger.error(err.stack);
-	return res.status(500).json({error: "Something went wrong!"}).end();
-});
+	return app;
+};
 
-export default app;
-
+const registerLibrary = (app: express.Express) => {
+	app.use(compression());
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({extended: true}));
+	app.use(helmet());
+	app.use(morganMiddleware);
+};
