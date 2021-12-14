@@ -8,8 +8,10 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <React.StrictMode>
 	<Header />
-	<Form />
-  </React.StrictMode>,
+	<div class="max-w-lg mx-auto">
+		<Form />
+	</div>
+	</React.StrictMode>,
   document.getElementById('root')
 );
 
