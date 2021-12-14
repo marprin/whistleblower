@@ -6,6 +6,7 @@ import express from 'express';
 import helmet from 'helmet';
 import { corsOptionsDelegate } from './src/lib/cors';
 import { ErrorHandler, NotFoundHandler } from './src/lib/custom-handler';
+import { DatabaseConfiguration, Mysql } from './src/lib/database';
 import morganMiddleware from './src/lib/middleware';
 import { routesMapping } from './src/routes';
 
@@ -27,6 +28,22 @@ export const init = () => {
 	const corsOrigin = env.CORS_ORIGIN || '*';
 	const listCorsOrigin = corsOrigin.split(',');
 	app.use(cors(corsOptionsDelegate(listCorsOrigin)));
+
+	const dbConf: DatabaseConfiguration = {
+		host: env.DB_HOST || 'localhost',
+		port: parseInt(String(env.DB_PORT)) || 3306,
+		user: env.DB_USER,
+		password: env.DB_PASS,
+		database: env.DB_NAME,
+		debug: (String(env.DB_DEBUG)) === 'true' ? true : false,
+		connectionLimit: parseInt(String(env.DB_CONN_LIMIT)),
+		queueLimit: parseInt(String(env.DB_QUEUE_LIMIT)),
+	};
+
+	// Create database connection
+	const db = new Mysql(dbConf)
+	db.testConnection();
+
 
 	// Register all routes in here
 	routesMapping(app);
